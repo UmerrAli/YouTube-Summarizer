@@ -50,7 +50,7 @@ export const renderSpinnerSummary = function () {
 
 export const renderSummary = function () {
   clear(summaryParent);
-  summary = state.summary
+  const summary = state.summary
     .replace(/\n/g, "<br>")
     .replace(/(\d+)\./g, "<b>$1.</b>"); //replace all newlines with <br> and all numbers with bold numbers
   const markup = `
