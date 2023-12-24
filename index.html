@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Youtube Summarizer</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon" />
+    <script type="module" src="./js/controller.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <img src="./img/logo.png" alt="Youtube Summarizer logo" />
+    </header>
+
+    <main>
+      <div class="heading">
+        <span><h1>Summarize YouTube videos Instantly!</h1></span>
+        <span class="red"><h1>Powered by AI</h1></span>
+      </div>
+
+      <div class="search-container">
+        <form>
+          <input
+            id="search-input"
+            type="text"
+            class="search-input"
+            placeholder="Paste YouTube video URL here..."
+            autocomplete="off"
+          />
+          <div class="button-container">
+            <button id="button1">Summarize in 10 Points</button>
+            <button id="button2" disabled>In-Depth Summary</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="meta-data-container">
+        <!-- <div class="meta-data-item">
+            <div id="video-title">TITLEEEEEEEE</div>
+        </div>
+        <div class="meta-data-item">
+            <div id="video-thumbnail"><img src="https://i.ytimg.com/vi/9bZkp7q19f0/hqdefault.jpg"></div>
+        </div> -->
+      </div>
+
+      <div class="summary-container">
+        <!-- <div class="summary-text">
+        <h2>Video Summary:</h2>
+        <div class="summary">
+        </div>
+      </div> -->
+      </div>
+      <footer>
+        <a href="https://github.com/UmerrAli" target="_blank">
+          <img src="./img/github.svg" alt="github" />
+          <span>Github</span>
+        </a>
+      </footer>
+    </main>
+  </body>
+</html>

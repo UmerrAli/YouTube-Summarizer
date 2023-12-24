@@ -1,0 +1,5 @@
+{
+  "appService.showBuildDuringDeployPrompt": false,
+  "appService.defaultWebAppToDeploy": "/subscriptions/eeda3ff7-1a7e-4089-acd7-299538bc3f49/resourceGroups/ytSummary_group/providers/Microsoft.Web/sites/ytSummary",
+  "appService.deploySubpath": "Flask-API"
+}

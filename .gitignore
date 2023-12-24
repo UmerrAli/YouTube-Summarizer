@@ -1,0 +1,7 @@
+node_modules
+venv
+.idea
+__pycache__
+config.py
+dist
+.parcel-cache
