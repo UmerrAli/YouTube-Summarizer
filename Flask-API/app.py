@@ -1,9 +1,9 @@
 from flask import Flask, jsonify, request
 from openai import OpenAI
-from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api import YouTubeTranscriptApi,NoTranscriptFound, InvalidVideoId
 from config import API_KEY
 from flask_cors import CORS
-from youtube_transcript_api import NoTranscriptFound, InvalidVideoId
+
 
 app = Flask(__name__)
 # CORS(app)

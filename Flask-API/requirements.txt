@@ -1,2 +1,5 @@
 Flask
 Gunicorn
+openai>=0.11.0,<0.12.0
+youtube-transcript-api>=0.4.1,<0.5.0
+Flask-Cors>=3.0.10,<4.0.0
