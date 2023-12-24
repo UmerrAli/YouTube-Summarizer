@@ -10,7 +10,6 @@ export const state = {
 };
 
 export const loadSummary = async function () {
-  x``;
   try {
     const data = await getJSON(`${API_URL}/summary?v=${state.videoId}`);
     // console.log(data.data);
@@ -22,7 +21,7 @@ export const loadSummary = async function () {
 
 export const loadMetaData = async function (videoId) {
   try {
-    const requestUrl = `http://youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
+    const requestUrl = `https://youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
     const result = await axios.get(requestUrl);
     // console.log(result.data);
     state.title = result.data.title;

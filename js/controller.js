@@ -41,6 +41,7 @@ const controlSummary = async function () {
     // 10. scroll to summary again when loaded
     view.scrollToSummary();
   } catch (error) {
+    console.log(error);
     view.renderError(error.message);
   }
 };
