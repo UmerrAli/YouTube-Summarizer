@@ -1,2 +1,2 @@
-export const API_URL = "https://flask-api-summary.onrender.com";
-export const TIMEOUT_SECONDS = 60;
+export const API_URL = "https://summarizer-api-youtube.onrender.com";
+export const TIMEOUT_SECONDS = 150;

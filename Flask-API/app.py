@@ -5,8 +5,8 @@ from config import API_KEY
 from flask_cors import CORS
 
 app = Flask(__name__)
-# CORS(app)
-CORS(app, resources={r"/summary": {"origins": "https://summarizeyoutube.netlify.app/"}})
+CORS(app)
+# CORS(app, resources={r"/summary": {"origins": "https://summarizeyoutube.netlify.app/"}})
 
 
 @app.route('/summary', methods=['GET'])
@@ -20,7 +20,8 @@ def youtube_summarizer():
         return jsonify({"data": "No English Subtitles found", "error": True})
     except InvalidVideoId:
         return jsonify({"data": "Invalid Video Id", "error": True})
-    except:
+    except Exception as e:
+        print(e)
         return jsonify({"data": "Unable to Summarize the video", "error": True})
 
     return jsonify({"data": data.choices[0].message.content, "error": False})

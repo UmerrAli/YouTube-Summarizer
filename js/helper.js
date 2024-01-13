@@ -20,6 +20,7 @@ export const getJSON = async function (url) {
   }
 };
 
+// Validate url and return video id if valid
 export const getVideoId = function (url) {
   if (validateYouTubeUrl(url)) {
     const pattern =

@@ -9,12 +9,8 @@ const search = document.querySelector("#search-input");
 export const displayMetaData = function () {
   clear(metaDataParent);
   const markup = `
-    <div class="meta-data-item">
-        <div id="video-title">${state.title}</div>
-    </div>
-    <div class="meta-data-item">
-        <div id="video-thumbnail"><img src="${state.thumbnailUrl}"></div>
-    </div>
+    <div id="video-title">${state.title}</div>
+    <div id="video-thumbnail"><img src="${state.thumbnailUrl}"></div>
   `;
   metaDataParent.insertAdjacentHTML("afterbegin", markup);
 };
@@ -36,12 +32,13 @@ export const renderSpinnerMetaData = function () {
   metaDataParent.insertAdjacentHTML("afterbegin", markup);
 };
 
+// This function render spinner as well as summary container
 export const renderSpinnerSummary = function () {
   clear(summaryParent);
   const markup = `
-    <div class="summary-text">
+    <div class="summary">
         <h2>Video Summary:</h2>
-        <div class="summary-spinner">
+        <div class="spinner-container">
             <div class="spinner"></div>
         </div>
     </div>`;
@@ -54,11 +51,9 @@ export const renderSummary = function () {
     .replace(/\n/g, "<br>")
     .replace(/(\d+)\./g, "<b>$1.</b>"); //replace all newlines with <br> and all numbers with bold numbers
   const markup = `
-    <div class="summary-text">
+    <div class="summary">
         <h2>Video Summary:</h2>
-        <div class="summary">
-            <div class="summary">${summary}</div>
-        </div>
+          <div class="summary-text">${summary}</div>
     </div>`;
   summaryParent.insertAdjacentHTML("afterbegin", markup);
 };
