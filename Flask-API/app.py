@@ -1,51 +1,56 @@
 from flask import Flask, jsonify, request
-from openai import OpenAI
+import google.generativeai as genai
 from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound, InvalidVideoId
-from config import API_KEY
+from youtube_transcript_api.proxies import WebshareProxyConfig
 from flask_cors import CORS
+import os
+import random
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
-# CORS(app, resources={r"/summary": {"origins": "https://summarizeyoutube.netlify.app/"}})
 
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({"status": "active", "message": "Service is running"}), 200
 
 @app.route('/summary', methods=['GET'])
 def youtube_summarizer():
     video_id = request.args.get('v')
     try:
         transcript = get_transcript(video_id)
-        data = open_ai(transcript)
-        # print(data.choices[0].message.content)
+        summary = generate_summary(transcript)
     except NoTranscriptFound:
         return jsonify({"data": "No English Subtitles found", "error": True})
     except InvalidVideoId:
         return jsonify({"data": "Invalid Video Id", "error": True})
     except Exception as e:
-        print(e)
+        print(f"Error: {e}")
         return jsonify({"data": "Unable to Summarize the video", "error": True})
 
-    return jsonify({"data": data.choices[0].message.content, "error": False})
+    return jsonify({"data": summary, "error": False})
 
 
 def get_transcript(video_id):
-    transcript_response = YouTubeTranscriptApi.get_transcript(video_id)
-    transcript_list = [item['text'] for item in transcript_response]
-    return ' '.join(transcript_list)
+    username = os.getenv("WEBSHARE_USERNAME")
+    password = os.getenv("WEBSHARE_PASSWORD")
+    # Use Webshare Proxy
+    try:
+        proxy_config = WebshareProxyConfig(proxy_username=username, proxy_password=password)
+        ytt_api = YouTubeTranscriptApi(proxy_config=proxy_config)
+        transcript_response = ytt_api.fetch(video_id)
+        return ' '.join([snippet.text for snippet in transcript_response])
+    except Exception as e:
+        print(f"Proxy connection failed: {e}")
+        raise e
 
 
-def open_ai(transcript):
-    client = OpenAI(api_key=API_KEY)
-
-    completion = client.chat.completions.create(
-        model="gpt-3.5-turbo-1106",
-        messages=[
-            {"role": "system",
-             "content": "You have to summarize a YouTube video using its transcript in 10 points"},
-            {"role": "user", "content": transcript}
-        ]
-    )
-    return completion
-
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
+def generate_summary(transcript):
+    model = genai.GenerativeModel("gemini-2.5-flash")
+    prompt = "You have to summarize a YouTube video using its transcript in 10 points. Transcript: " + transcript
+    response = model.generate_content(prompt)
+    return response.text

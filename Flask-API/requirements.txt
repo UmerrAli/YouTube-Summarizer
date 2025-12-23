@@ -1,5 +1,6 @@
 Flask
 Gunicorn
-openai
+google-generativeai
+python-dotenv
 youtube-transcript-api
 Flask-Cors
